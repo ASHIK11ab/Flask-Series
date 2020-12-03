@@ -8,11 +8,11 @@
 ## Getting started:
   1. Install pipenv by running:
   ```bash
-    $> pip install pipenv
+    > pip install pipenv
   ```
   2. Installing dependencies:
   ```bash
-    $> pipenv install -r Pipfile.lock
+    > pipenv install -r Pipfile.lock
   ``` 
   ## Note:
   * > Pipfile varies with respect to the operating system.
