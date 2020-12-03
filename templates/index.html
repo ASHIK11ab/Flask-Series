@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='/css/index.css') }}">
+  <title>Flask OAuth tutorial</title>
+</head>
+<body>
+  <h1>Flask OAuth Tutorial</h1>
+  <div class="oauth-box">  
+    <div id="oauth-google">
+      <a href="{{ url_for('google_login') }}">
+        <img src="{{ url_for('static', filename='/images/google-logo.png') }}" 
+        width="55px" height="55px" alt="Google logo">
+      </a>
+    </div>
+    <div>
+      <a href="{{ url_for('github_login') }}">
+        <img src="{{ url_for('static', filename='/images/github-logo.png') }}" 
+        width="41px" height="42px" alt="Github logo">
+      </a>
+    </div>
+  </div>
+</body>
+</html>
