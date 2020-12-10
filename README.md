@@ -15,4 +15,4 @@
 
 &copy; copyrights 2020. All rights reserved.
 
-Licensed under [MIT LICENSE](https://github.com/ASHIK11ab/Flask-Tutorials/blob/master/LICENSE)
+Licensed under [MIT LICENSE](https://github.com/ASHIK11ab/Flask-Tutorials/blob/main/LICENSE)
