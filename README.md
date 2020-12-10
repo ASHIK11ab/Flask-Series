@@ -1,13 +1,13 @@
-# Implementing OAuth in your Flask app using Authlib.
+## Implementing OAuth in your Flask app using Authlib.
 
-## Overview:
+### Overview:
   * This tutorial is about implementing OAuth login (Google, Github) in your Flask app using Authlib.
   * To view the Youtube demonstration of this tutorial [click here](https://youtu.be/ZCDzwYaAKCI)
 
-## Prerequisites:
+### Prerequisites:
   * Python version 3.8
 
-## Getting started:
+### Getting started:
   1. Install pipenv by running:
   ```bash
     > pip install pipenv
@@ -16,11 +16,11 @@
   ```bash
     > pipenv install -r Pipfile.lock
   ``` 
-  ## Note:
+### Note:
   >* Pipfile varies with respect to the operating system.
   >* If you use other operating system than windows, it is recommended to install the dependencies manually one by one.
 
-  ## Useful Links:
+### Useful Links:
   * [Youtube Demonstration](https://youtu.be/ZCDzwYaAKCI)
   * [Authlib documentation](https://docs.authlib.org/en/latest/)
   * [Registering your OAuth app with Google](https://console.developers.google.com/apis/dashboard)
