@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Login
+{% endblock %}
+
+{% block stylesheet %}
+  <style>
+
+    .container {
+      width: 80%;
+      margin: auto;
+    }  
+
+    input {
+      width: 10rem;
+      display: block;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+
+  </style>
+{% endblock %}
+
+
+{% block body %}
+<div class="container">
+  <form action="{{ url_for('login') }}" method="post">
+    <input type="text" name="username" placeholder="Enter your username">
+    <input type="password" name="password" placeholder="Enter your password">
+    <input type="submit" value="Submit"> 
+  </form>
+</div>
+{% endblock %}

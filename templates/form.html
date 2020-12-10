@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %} 
+  Using forms in Flask
+{% endblock %}
+
+{% block stylesheet %}
+  <style>
+
+    .container {
+      width: 80%;
+      margin: auto;
+    }  
+
+    input {
+      width: 10rem;
+      display: block;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+
+  </style>
+{% endblock %}
+
+{% block body %} 
+  <div class="container">
+    <form action="{{ url_for('form') }}" method="post">
+      <input type="text" name="name" placeholder="Enter your name">
+      <input type="number" name="age" placeholder="Enter your age">
+      <input type="submit" value="Submit"> 
+    </form>
+  </div>
+{% endblock %}

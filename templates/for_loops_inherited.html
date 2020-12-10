@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block title %} 
+  For loops in Jinja using Templates
+{% endblock %}
+
+{% block body %}
+
+  {% for language in languages %}
+    <h1>Hello from {{ language }}</h1>
+    
+    {% block ifElse %} {% endblock %}
+
+  {% endfor %}
+
+{% endblock %}

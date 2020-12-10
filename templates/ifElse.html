@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>If else in Jinja2</title>
+</head>
+<body>
+  {% for language in languages %}
+    <h1>Hello from {{ language }}</h1>
+      
+    {% if language == "python" or language == "JS" %}
+      <h2>{{ language }} is popular</h2>
+    {% endif %}
+
+  {% endfor %}
+</body>
+</html>
