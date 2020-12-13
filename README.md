@@ -6,19 +6,19 @@
   1. Basic URL routing in Flask.
   1. Rendering templates in Flask.
   1. Passing variables to HTML files.
-  1. Loops and conditional statemnts using Jinja2.
+  1. Loops and conditional statemnts in HTML using Jinja2.
   1. Template inheritance in Flask using Jinja2.
   1. Collecting data from Forms.
   1. Session Management in Flask.
   1. Redirecting users to different URL.
-* To view the YouTube demonstration of this video <a> click here </a>
+* To view the YouTube demonstration of this video <a href="https://youtu.be/KbJ2Fa56cEw"> click here </a>
 
 ### Prerequisites
 * Python version 3.8
 * Flask 1.1.x
 
 ### Useful Links
-* [YouTube Demonstration]()
+* [YouTube Demonstration](https://youtu.be/KbJ2Fa56cEw)
 * [Flask Documentation](https://flask.palletsprojects.com/en/1.1.x/)
 * [Jinja2 Documentation](https://jinja.palletsprojects.com/en/2.11.x/)
 
