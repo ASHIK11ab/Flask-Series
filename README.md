@@ -2,7 +2,7 @@
 
 ### Overview:
 * In this section i have created a crash course video in Flask. This crash course is to transform you from a beginner to a Pro in Flask, hopefully :)
-* I have covered various topics in this crash course: 
+* Topics covered in this crash course: 
   1. Basic URL routing in Flask.
   1. Rendering templates in Flask.
   1. Passing variables to HTML files.
