@@ -5,7 +5,7 @@
 
 ### Index:
 1. [Flask Crash Course](https://github.com/ASHIK11ab/Flask-Tutorials/tree/flask-crash-course)
-1. [Connecting to Database](https://github.com/ASHIK11ab/Flask-Tutorials/tree/connecting-to-database)
+1. [Connecting to Database](https://github.com/ASHIK11ab/Flask-Tutorials/tree/connecting-to-databasae)
 1. [Implementing OAuth in Flask](https://github.com/ASHIK11ab/Flask-Tutorials/tree/OAuth-implementation)
 
 ### Contributors:
