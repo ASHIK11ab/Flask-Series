@@ -1,7 +1,7 @@
-## Flask-Tutorials
+## Welcome to Flask series
 
 ### Overview:
-* This repository contains tutorials on Flask.
+- This repository contains tutorials on Flask. We started from scratch and we will end this series with all you need to start web development using Flask.
 
 ### Index:
 1. [Flask Crash Course](https://github.com/ASHIK11ab/Flask-Tutorials/tree/flask-crash-course)
