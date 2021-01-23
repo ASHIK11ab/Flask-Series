@@ -1,4 +1,4 @@
-## Implementing OAuth in your Flask app using Authlib.
+## Implementing OAuth in your Flask app using Authlib
 
 ### Overview:
   * This tutorial is about implementing OAuth login (Google, Github) in your Flask app using Authlib.
@@ -26,7 +26,7 @@
   * [Registering your OAuth app with Google](https://console.developers.google.com/apis/dashboard)
   * [Registering your OAuth app with Github](https://github.com/settings/developers)
 
-[[Back to top]](#implementing-oauth-in-your-flask-app-using-authlib.)
+[[Back to top]](#implementing-oauth-in-your-flask-app-using-authlib)
 
 ## Contributors:
 <a href="https://github.com/ASHIK11ab">
