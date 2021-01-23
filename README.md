@@ -4,9 +4,9 @@
 - This repository contains tutorials on Flask. We started from scratch and we will end this series with all you need to start web development using Flask.
 
 ### Index:
-1. [Flask Crash Course](https://github.com/ASHIK11ab/Flask-Tutorials/tree/flask-crash-course)
-1. [Connecting to Database](https://github.com/ASHIK11ab/Flask-Tutorials/tree/connecting-to-database)
-1. [Implementing OAuth in Flask](https://github.com/ASHIK11ab/Flask-Tutorials/tree/OAuth-implementation)
+1. [Flask Crash Course](https://github.com/ASHIK11ab/Flask-Series/tree/flask-crash-course)
+1. [Connecting to Database](https://github.com/ASHIK11ab/Flask-Series/tree/connecting-to-database)
+1. [Implementing OAuth in Flask](https://github.com/ASHIK11ab/Flask-Series/tree/OAuth-implementation)
 
 ### Contributors:
 <a href="https://github.com/ASHIK11ab">
