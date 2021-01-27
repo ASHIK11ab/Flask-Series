@@ -1,0 +1,33 @@
+* {
+  font-family: Helvetica;
+}
+
+form {
+  width: 600px;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  margin: 10% auto;
+}
+
+label {
+  display: block;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+input {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+button {
+  width: 100%;
+  background-color: dodgerblue;
+  color: #fff;
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+}
