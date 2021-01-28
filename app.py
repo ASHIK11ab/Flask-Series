@@ -3,7 +3,6 @@ from utils import *
 
 app = Flask(__name__)
 
-
 @app.route('/', methods=["GET", "POST"])
 def index():
   if request.method == "POST":
@@ -25,9 +24,9 @@ def index():
   return render_template('index.html')
 
 
-@app.route('/<path:path_name>')
-def redirect_url(path_name):
-  url = name_available(path_name)
+@app.route('/<path:short_name>')
+def redirect_url(short_name):
+  url = get_url(short_name)
   if url is None:
     return "<h2 style='color:red'> Invalid URL </h2>"
   return redirect(url.url)

@@ -31,3 +31,7 @@ button {
   padding: 1rem;
   border-radius: 8px;
 }
+
+button:hover {
+  cursor: pointer;
+}

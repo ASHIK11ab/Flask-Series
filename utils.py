@@ -10,7 +10,7 @@ def valid_url(url):
   return validators.url(url) is True
 
 def name_available(name):
-  return db.execute("select * from url_info where short_name = :name",
+  return db.execute("select short_name from url_info where short_name = :name",
   {"name" : name}).fetchone()
 
 def add_url(name, url):
@@ -20,4 +20,8 @@ def add_url(name, url):
     "url": url
   })
   db.commit()
+
+def get_url(short_name):
+  return db.execute("select * from url_info where short_name = :short_name",
+  {"short_name" : short_name}).fetchone()
 
