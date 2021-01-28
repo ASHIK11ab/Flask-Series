@@ -114,7 +114,7 @@
 
 1. After styling this is how our index page will look.
 <p align="center">
-  <img src="static/images/app_image.png" width="80%" height = "300px">
+  <img src="static/images/app_image.png" width="400px" height = "300px">
 </p>
 
 1. Now we need to get the input data in the backend. Since our index route is also going to accept a POST request we need to specify the list of methods that this route should accept.
@@ -257,7 +257,7 @@ def index():
 
 ### Now its time to run our app
 <p align="center">
-  <img src="static/images/url shortner demo.gif" width="80%">
+  <img src="static/images/url shortner demo.gif" width="400px">
 </p>
 
 [[Back to top](#url-shortner-app-using-flask)]
