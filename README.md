@@ -24,19 +24,19 @@
   from flask import Flask, request, render_template, redirect
 ```
 
-1. Create your flask application
+2. Create your flask application
 ```python
   app = Flask(__name__)
 ```
 
-1. Create an index route for your application which renders an index.html template
+3. Create an index route for your application which renders an index.html template
 ```python
   @app.route('/')
   def index():
     return render_template('index.html')
 ```
 
-1. In the index.html file create a form by which users can input their URL and they can choose a short name for the URL
+4. In the index.html file create a form by which users can input their URL and they can choose a short name for the URL
 ```html
   <!DOCTYPE html>
   <html lang="en">
@@ -60,14 +60,15 @@
   </body>
   </html>
 ```
-  1. In the above html file we have create a form with two input fields and a button.
-  1. We have linked our stylesheet using jinja syntax.
-  ```html
-    <link rel="stylesheet" href="{{ url_for('static', filename='/css/index.css') }}" >
-  ```
-  1. The form sends the data to then index function through POST method.
 
-1. Now lets style the form.
+&emsp;&emsp;&emsp;i. In the above html file we have create a form with two input fields and a button.<br />
+&emsp;&emsp;&emsp;ii. We have linked our stylesheet using jinja syntax.
+```html
+  <link rel="stylesheet" href="{{ url_for('static', filename='/css/index.css') }}" >
+```
+&emsp;&emsp;&emsp;iii. The form sends the data to then index function through POST method.
+
+5. Now lets style the form.
 ```css
   * {
     font-family: Helvetica;
@@ -107,17 +108,17 @@
     cursor: pointer;
   }
 ```
-  1. We are giving the form a fixed width and some padding and border radius.
-  1. We style the label to display as a block element and we give it some margin bottom.
-  1. We give some padding and border radius to the input field.
-  1. We give a background color and text color and we give it some padding.
+  &emsp;&emsp;&emsp;i. We are giving the form a fixed width and some padding and border radius.<br>
+  &emsp;&emsp;&emsp;ii. We style the label to display as a block element and we give it some margin bottom.<br>
+  &emsp;&emsp;&emsp;iii. We give some padding and border radius to the input field.<br>
+  &emsp;&emsp;&emsp;iv. We give a background color and text color and we give it some padding.
 
-1. After styling this is how our index page will look.
+6. After styling this is how our index page will look.
 <p align="center">
   <img src="static/images/app_image.png" width="400px" height = "300px">
 </p>
 
-1. Now we need to get the input data in the backend. Since our index route is also going to accept a POST request we need to specify the list of methods that this route should accept.
+7. Now we need to get the input data in the backend. Since our index route is also going to accept a POST request we need to specify the list of methods that this route should accept.
 ```python
   @app.route('/', methods=["GET", "POST"])
   def index():
@@ -126,15 +127,15 @@
       url = request.form.get('url')
 ```
 
-  1. If the request method is POST we get the two input data.
+&emsp;&emsp;&emsp;i. If the request method is POST we get the two input data.
 
-1. If the user inputs an URL without protocol we add the protocol to the url.
+8. If the user inputs an URL without protocol we add the protocol to the url.
 ```python
   if 'http' not in url:
       url = f'http://{url}'
 ```
 
-1. Now we need to make sure that the url is a valid url and the short name which the user chose is available.
+9. Now we need to make sure that the url is a valid url and the short name which the user chose is available.
 ```python
   if valid_url(url):
     if name_available(short_name) is None:
@@ -145,22 +146,22 @@
   else:
     return render_template('index.html', msg='Invalid url')
 ```
-  1. If the URL is a valid URL and if the short name is available we add the URL to our database and notify the user that their short link has been created sucessfully.
-  1. We render a success.html template and we pass the short name as an parameter to the template. 
-  1. If the URL is not valid or if the short name is not available we return the index.html template with an error message.
+&emsp;&emsp;&emsp;i. If the URL is a valid URL and if the short name is available we add the URL to our database and notify the user that their short link has been created sucessfully.<br>
+&emsp;&emsp;&emsp;ii. We render a success.html template and we pass the short name as an parameter to the template.<br>
+&emsp;&emsp;&emsp;iii. If the URL is not valid or if the short name is not available we return the index.html template with an error message.
 
-1. Now we need to create the functions which we are using in the index route. We will create all these function in [utils.py](https://github.com/ASHIK11ab/Flask-Series/tree/url-shortner-app/utils.py)
+10. Now we need to create the functions which we are using in the index route. We will create all these function in [utils.py](https://github.com/ASHIK11ab/Flask-Series/tree/url-shortner-app/utils.py)
 
-1. In order to validate the URL we will use the validators library.
+11. In order to validate the URL we will use the validators library.
 ```python
   import validators
 
   def valid_url(url):
     return validators.url(url) is True
 ```
-  1. This function returns true if the URL is valid or false otherwise.
+&emsp;&emsp;&emsp;i. This function returns true if the URL is valid or false otherwise.<br>
 
-1. In order to query the database we need to create a database object.
+12. In order to query the database we need to create a database object.
 ```python
   from sqlalchemy import create_engine
   from sqlalchemy.orm import scoped_session, sessionmaker
@@ -170,7 +171,7 @@
   db = scoped_session(sessionmaker(bind = engine))
 ```
 
-1. Lets first have a look at our database in which we have a single relation with the name url_info.
+13. Lets first have a look at our database in which we have a single relation with the name url_info.
 ```
            List of relations
   Schema |   Name   | Type  | Owner
@@ -178,22 +179,22 @@
   public | url_info | table | ashik
 ```
 
-1. The table URL info has three fields id, short_name, url.
+14. The table URL info has three fields id, short_name, url.
 ```
    id | short_name | url
   ----+------------+-----
 ```
 
-1. The name_available function checks whether the short name which the user chose is available.
+15. The name_available function checks whether the short name which the user chose is available.
 ```python
   def name_available(name):
     return db.execute("select short_name from url_info where short_name = :name",
   {"name" : name}).fetchone()
 ```
-  1. This function will return a short name from the database if the short name is exists in the database.
+&emsp;&emsp;&emsp;i. This function will return a short name from the database if the short name is exists in the database.
       > Here the :name is SQLAlchemy syntax. When this query is executed the :name will be replaced by the value of the key name which is passed as a dictionary as the second parameter.
 
-1. Now we need to create a function add_url which will add the URL and its short_name to the database.
+16. Now we need to create a function add_url which will add the URL and its short_name to the database.
 ```python
   def add_url(name, url):
     db.execute("insert into url_info (short_name, url) values (:name, :url)",
@@ -204,7 +205,7 @@
     db.commit()
 ```
 
-1. Consolidating everything this is how our index route should look now
+17. Consolidating everything this is how our index route should look now
 ```python
 @app.route('/', methods=["GET", "POST"])
 def index():
@@ -226,9 +227,9 @@ def index():
   return render_template('index.html')
 ```
 
-1. Now its time to create our actual application. When a user visits the short link we need to redirect the user to the actual URL.
+18. Now its time to create our actual application. When a user visits the short link we need to redirect the user to the actual URL.
 
-1. Lets first create a route using the path converter which is going to accept the short links.
+19. Lets first create a route using the path converter which is going to accept the short links.
 ```python
   @app.route('/<path:short_name>')
   def redirect_url(short_name):
@@ -237,9 +238,9 @@ def index():
       return "<h2 style='color:red'> Invalid short link </h2>"
     return redirect(url.url)
 ```
-  1. Now we need to make sure that the short name is a valid so that we can redirect user to the actual URL.
+&emsp;&emsp;&emsp;i. Now we need to make sure that the short name is a valid so that we can redirect user to the actual URL.
 
-1. Lets create the function get_url which returns a record from the database if the short name exists.
+20. Lets create the function get_url which returns a record from the database if the short name exists.
 ```python
   def get_url(short_name):
     return db.execute("select * from url_info where short_name = :short_name",
@@ -248,9 +249,9 @@ def index():
       }).fetchone()
 ```
 
-1. If short name does not exist this function returns None and we return an error message 'invalid short link'.
+21. If short name does not exist this function returns None and we return an error message 'invalid short link'.
 
-1. If the short name is valid this function returns a record from the database and we redirect the user to the actual URL by
+22. If the short name is valid this function returns a record from the database and we redirect the user to the actual URL by
 ```python
   return redirect(url.url)
 ```
