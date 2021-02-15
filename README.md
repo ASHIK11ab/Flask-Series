@@ -120,18 +120,78 @@
   select * from users;
 ```
 ```python
-  Equivalent ORM query:
+  Equivalent ORM Query:
 
-  users = User.query.all()
-  print(users)
+  >>> users = User.query.all()
+  >>> print(users)
 ```
-- The result of above ORM query is:
-```postgres
-   id | name  | age
-  ----+-------+-----
-    1 | Jack  |  21
-    2 | James |  19
-    3 | Harry |  18
-    4 | Kim   |  16
-  (3 rows)
+```python
+  Output:
+    [(1, Jack, 21), (2, James, 19), (3, Harry, 18), (4, Kim, 16)]
+```
+
+2. For instance, if you only wanted the first record of the result you can use the first() method.
+```python
+  >>> user = User.query.first()
+  >>> print(user)
+```
+```python
+  Output:
+  (1, Jack, 21)
+```
+
+3. If you only wanted to query specific columns then you can use the with_entities() method. For eg, If you only wanted the names of all of the users.
+```python
+  >>> user_names = User.query.with_entities(User.name).all()
+  >>> print(user_names)
+```
+```python
+  Output:
+    [('Jack',), ('James',), ('Kim',)]
+```
+
+### Filtering records based on condition
+1. We can filter the records based on certain conditions. For instance if you wanted to find the users whose age is greater than 18.
+```sql
+  SQL Query:
+
+  select * from users where age > 18;
+```
+```python
+  Equivalent ORM Query:
+  users = User.query.filter(User.age > 18).all()
+```
+
+2. You can also use multiple conditions to filter the results.<br>
+&emsp;i. For instance lets get the details of all users whose age is greater than 20 or whose name starts with the character 'K'.
+```sql
+  SQL Query:
+
+  select * from users where age > 20 or name like('K%');
+```
+```python
+  Equivalent ORM Query:
+
+  users = User.query.filter( (User.age > 20) | (User.name.startswith('K')) ).all()
+```
+```python
+  Output:
+    [(1, Jack, 21), (4, Kim, 16)]
+```
+
+&emsp;&emsp;&emsp;&emsp;ii. Similar to or condition ( ' | ' ) you can also use and condition (' & ' ).<br>
+&emsp;&emsp;&emsp;&emsp;iii. For instance lets get the details of all users whose id is greater than 2 and whose age is greater than 17.
+```sql
+  SQL Query:
+
+  select * from users where id > 2 and age > 17;
+```
+```python
+  Equivalent ORM Query:
+
+  users = User.query.filter( (User.id > 2) & (User.age > 17) ).all()
+```
+```python
+  Output:
+    [(3, Harry, 18)]
 ```
