@@ -20,6 +20,17 @@
 >   > pipenv install Flask Flask-SQLAlchemy psycopg2
 >  ```
 
+| Table of Contents |
+| :---------------- |
+| [**Modelling a SQL table as a class**](#modelling-a-sql-table-as-a-class) |
+| [**Converting classes to tables**](#converting-classes-to-tables) |
+| [**Inserting records into a table**](#inserting-records-into-a-table) |
+| [**Selecting records from a table**](#selecting-records-from-a-table) |
+| [**Filtering records based on condition**](#filtering-records-based-on-condition) |
+| [**Updating records in a table**](#updating-records-in-a-table) |
+| [**Deleting records in a table**](#deleting-records-in-a-table) |
+
+<br>
 ### Step by Step Guide
 1. Import necessary classes.
 ```python
@@ -44,7 +55,7 @@
   db = SQLAlchemy(app)
 ```
 
-### Modelling a table as a Class
+### Modelling a SQL table as a Class
 1. Now its time to model an SQL table as a class.
 ```python
   class User(db.Model):
@@ -91,7 +102,7 @@
   (2 rows)
 ```
 
-### Inserting records into the table 
+### Inserting records into a table 
 1. Inorder to insert records into the table. First we need to create an object of our class.
 ```python
   user = User(name = 'Jack', age = 21)
