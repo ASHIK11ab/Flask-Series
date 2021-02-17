@@ -22,8 +22,13 @@
 * [Flask Documentation](https://flask.palletsprojects.com/en/1.1.x/)
 * [Jinja2 Documentation](https://jinja.palletsprojects.com/en/2.11.x/)
 
-### Other Flask Tutorials:
-* [Implementing OAuth in Flask using Authlib](https://github.com/ASHIK11ab/Flask-Tutorials/tree/OAuth-implementation)
+[**Back to top**](#welcome-to-the-flask-crash-course)
+
+<p align="right">
+  <a href="https://github.com/ASHIK11ab/Flask-Series/tree/connecting-to-database">
+    <strong>Next--></strong>
+  </a>
+</p>
 
 ## Contributors:
 <a href="https://github.com/ASHIK11ab">
