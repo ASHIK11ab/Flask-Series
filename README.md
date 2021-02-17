@@ -1,10 +1,10 @@
-## Object Relation Mapping (ORM) in Flask
+## Object Relational Mapping (ORM) in Flask
 
 ### Overview
 - In this episode we will explore on how to use Object Relational Mapping (ORM) in Flask using Flask-SQLAlchemy.
 - ORM is a powerful tool which lets us combine object oriented programming along with SQL.
 - The basic idea behind ORM is that we model an SQL table as a class and then we use certain methods to query the database.
-- To see the YouTube demonstration of this tutorial [click here]()
+- To see the YouTube demonstration of this tutorial [click here](https://youtu.be/7C_zr5f9ed4)
 
 ### Setting up the environment
 - Download this [Pipfile.lock](https://github.com/ASHIK11ab/Flask-Series/tree/orm/Pipfile.lock) and install the necessary dependencies by running
@@ -264,3 +264,27 @@
   Output (After Deleting):
     [(1, Jack, 22), (3, Harry, 19), (4, Kim, 17)]
 ```
+
+[[**Back to top**](#object-relational-mapping-(orm)-in-flask)]
+
+<p align="right">
+  <a href="https://github.com/ASHIK11ab/Flask-Series/tree/url-shortner-app">
+    <strong><--Prev</strong>
+  </a>
+</p>
+<p align="right">
+  <a href="https://github.com/ASHIK11ab/Flask-Series/tree/OAuth-implementation">
+    <strong>Next--></strong>
+  </a>
+</p>
+
+## Contributors:
+<a href="https://github.com/ASHIK11ab">
+  <img style="border-radius: 50px" src="https://avatars2.githubusercontent.com/u/58099865?s=460&u=dc835e2281a9265edf2b48059f1c8151be89a1b1&v=4" width="70px" height = "70px"> 
+</a> 
+
+[Ashik Meeran Mohideen](https://github.com/ASHIK11ab)
+
+&copy; copyrights 2020. All rights reserved.
+
+Licensed under [MIT LICENSE](https://github.com/ASHIK11ab/Flask-Series/blob/main/LICENSE)
