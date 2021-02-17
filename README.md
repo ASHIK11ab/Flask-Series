@@ -261,7 +261,18 @@ def index():
   <img src="static/images/url shortner demo.gif" width="400px">
 </p>
 
-[[Back to top](#url-shortner-app-using-flask)]
+[[**Back to top**](#url-shortner-app-using-flask)]
+
+<p align="right">
+  <a href="https://github.com/ASHIK11ab/Flask-Series/tree/orm">
+    <strong>Next--></strong>
+  </a>
+</p>
+<p align="right">
+  <a href="https://github.com/ASHIK11ab/Flask-Series/tree/connecting-to-database">
+    <strong><--Prev</strong>
+  </a>
+</p>
 
 ## Contributors:
 <a href="https://github.com/ASHIK11ab">
