@@ -114,7 +114,7 @@
 
 ### Selecting records from a table
 1. To select all the values from the table users.
-```sql
+```postgresql
   SQL query:
 
   select * from users;
@@ -141,7 +141,16 @@
 ```
 
 3. If you only wanted to query specific columns then you can use the with_entities() method. For eg, If you only wanted the names of all of the users.
+
+```postgres
+  SQL Query:
+
+  select name from users;
+```
+
 ```python
+  Equivalent ORM Query:
+
   >>> user_names = User.query.with_entities(User.name).all()
   >>> print(user_names)
 ```
@@ -152,19 +161,24 @@
 
 ### Filtering records based on condition
 1. We can filter the records based on certain conditions. For instance if you wanted to find the users whose age is greater than 18.
-```sql
+```postgres
   SQL Query:
 
   select * from users where age > 18;
 ```
 ```python
   Equivalent ORM Query:
-  users = User.query.filter(User.age > 18).all()
+
+  >>> users = User.query.filter(User.age > 18).all()
+```
+```python
+  Output:
+    [(1, Jack, 21), (2, James, 19)]
 ```
 
 2. You can also use multiple conditions to filter the results.<br>
 &emsp;i. For instance lets get the details of all users whose age is greater than 20 or whose name starts with the character 'K'.
-```sql
+```postgres
   SQL Query:
 
   select * from users where age > 20 or name like('K%');
@@ -172,16 +186,16 @@
 ```python
   Equivalent ORM Query:
 
-  users = User.query.filter( (User.age > 20) | (User.name.startswith('K')) ).all()
+  >>> users = User.query.filter( (User.age > 20) | (User.name.startswith('K')) ).all()
 ```
 ```python
   Output:
     [(1, Jack, 21), (4, Kim, 16)]
 ```
 
-&emsp;&emsp;&emsp;&emsp;ii. Similar to or condition ( ' | ' ) you can also use and condition (' & ' ).<br>
+&emsp;&emsp;&emsp;&emsp;ii. Similar to 'or' condition ( ' | ' ) you can also use 'and' condition (' & ' ).<br>
 &emsp;&emsp;&emsp;&emsp;iii. For instance lets get the details of all users whose id is greater than 2 and whose age is greater than 17.
-```sql
+```postgres
   SQL Query:
 
   select * from users where id > 2 and age > 17;
@@ -189,9 +203,53 @@
 ```python
   Equivalent ORM Query:
 
-  users = User.query.filter( (User.id > 2) & (User.age > 17) ).all()
+  >>> users = User.query.filter( (User.id > 2) & (User.age > 17) ).all()
 ```
 ```python
   Output:
     [(3, Harry, 18)]
+```
+
+### Updating records in a table
+1. Inorder to update any record or any field in a table we need to query the entire record and we need to update the value and we need to do a commit.
+
+2. Lets try to update the age of all users by 1.
+```python
+  Before Updation:
+  
+    [(1, Jack, 21), (2, James, 19), (3, Harry, 18), (4, Kim, 16)]
+```
+```postgres
+  SQL Query:
+
+  update users set age = age + 1;
+```
+```python
+  Equivalent ORM Query:
+
+  >>> users = User.query.all()
+  >>> for user in users:
+  ...  user.age += 1
+  >>> db.session.commit()
+```
+```python
+  Output (After Updation):
+    [(1, Jack, 22), (2, James, 20), (3, Harry, 19), (4, Kim, 17)]
+```
+
+### Deleting records in a table
+1. Now lets try to delete a record in a table. Lets try to delete the user with id 2.
+```postgres
+  SQL Query:
+
+  delete from users where id = 2;
+```
+```python
+  >>> user = User.query.filter(User.id == 2).first()
+  >>> db.session.delete(user)
+  >>> db.session.commit()
+```
+```python
+  Output (After Deleting):
+    [(1, Jack, 22), (3, Harry, 19), (4, Kim, 17)]
 ```
