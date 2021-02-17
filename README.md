@@ -22,7 +22,7 @@
 * [Flask Documentation](https://flask.palletsprojects.com/en/1.1.x/)
 * [Jinja2 Documentation](https://jinja.palletsprojects.com/en/2.11.x/)
 
-[**Back to top**](#welcome-to-the-flask-crash-course)
+[[**Back to top**]](#welcome-to-the-flask-crash-course)
 
 <p align="right">
   <a href="https://github.com/ASHIK11ab/Flask-Series/tree/connecting-to-database">
@@ -39,4 +39,4 @@
 
 &copy; copyrights 2020. All rights reserved.
 
-Licensed under [MIT LICENSE](https://github.com/ASHIK11ab/Flask-Tutorials/blob/main/LICENSE)
+Licensed under [MIT LICENSE](https://github.com/ASHIK11ab/Flask-Series/blob/main/LICENSE)
