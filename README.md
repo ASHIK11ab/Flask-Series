@@ -264,13 +264,13 @@ def index():
 [[**Back to top**](#url-shortner-app-using-flask)]
 
 <p align="right">
-  <a href="https://github.com/ASHIK11ab/Flask-Series/tree/orm">
-    <strong>Next--></strong>
+  <a href="https://github.com/ASHIK11ab/Flask-Series/tree/sql-from-python">
+    <strong><--Prev</strong>
   </a>
 </p>
 <p align="right">
-  <a href="https://github.com/ASHIK11ab/Flask-Series/tree/connecting-to-database">
-    <strong><--Prev</strong>
+  <a href="https://github.com/ASHIK11ab/Flask-Series/tree/orm">
+    <strong>Next--></strong>
   </a>
 </p>
 
