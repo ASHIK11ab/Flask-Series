@@ -21,7 +21,7 @@
 >  ```
 <br>
 
-| Table of Contents |
+| &emsp;&emsp;&emsp;&nbsp;Table of Contents |
 | :---------------- |
 | [**Modelling a SQL table as a class**](#modelling-a-sql-table-as-a-class) |
 | [**Converting classes to tables**](#converting-classes-to-tables) |
@@ -30,8 +30,6 @@
 | [**Filtering records based on condition**](#filtering-records-based-on-condition) |
 | [**Updating records in a table**](#updating-records-in-a-table) |
 | [**Deleting records in a table**](#deleting-records-in-a-table) |
-
-<br>
 
 ### Step by Step Guide
 1. Import necessary classes.
