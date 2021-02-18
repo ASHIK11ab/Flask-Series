@@ -1,7 +1,7 @@
-## Connecting to Database from Python
+## Executing SQL Queries from Python
 
 ### Overview
-- In this tutorial we will learn how to connect to a database from Python and we will also execute some basic SQL queries from Python.
+- In this episode we will learn how to connect to a database from Python and we will also execute some basic SQL queries from Python.
 - To see the YouTube demonstration of this tutorial [click here](https://youtu.be/UBf1z4sVV10)
 
 ### Setting up the environment
@@ -61,7 +61,7 @@
     show_students()
 ```
 
-[[Back to top](#connecting-to-database-from-python)]
+[[Back to top](#executing-sql-queries-from-python)]
 
 <p align="right">
   <a href="https://github.com/ASHIK11ab/Flask-Series/tree/flask-crash-course">
