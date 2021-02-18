@@ -267,7 +267,7 @@
     [(1, Jack, 22), (3, Harry, 19), (4, Kim, 17)]
 ```
 
-[Back to top](#object-relational-mapping-(orm)-in-flask)]
+[Back to top](#object-relational-mapping-(orm)-in-flask)
 
 
 <p align="right">
