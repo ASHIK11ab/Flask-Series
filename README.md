@@ -19,6 +19,7 @@
 >  ```bash
 >   > pipenv install Flask Flask-SQLAlchemy psycopg2
 >  ```
+<br>
 
 | Table of Contents |
 | :---------------- |
@@ -31,6 +32,7 @@
 | [**Deleting records in a table**](#deleting-records-in-a-table) |
 
 <br>
+
 ### Step by Step Guide
 1. Import necessary classes.
 ```python
@@ -87,9 +89,9 @@
 ### Converting classes to tables
 1. Now we need to convert our classes into SQL tables.
 ```python
-  > db.create_all()
+  >>> db.create_all()
 ```
-  > db.create_all() will convert all our classes into SQL tables automatically.
+  >>> db.create_all() will convert all our classes into SQL tables automatically.
 
 2. Now our database should look like this.
 ```postgres
@@ -105,27 +107,27 @@
 ### Inserting records into a table 
 1. Inorder to insert records into the table. First we need to create an object of our class.
 ```python
-  user = User(name = 'Jack', age = 21)
+  >>> user = User(name = 'Jack', age = 21)
 ```
 2. Now we need to add this object to our table.
 ```python
-  db.session.add(user)
-  db.session.commit()
+  >>> db.session.add(user)
+  >>> db.session.commit()
 ```
 &emsp;&emsp;&emsp;i. Since we are making a changes to the table we need to run db.session.commit() to commit all our changes.
 
 3. You can add more than one object to the table by using db.session.add_all() method.
 ```python
-  user1 = User(name = 'James', age = 19)
-  user2 = User(name = 'Harry', age = 18)
-  user3 = User(name = 'Kim', age = 16)
-  db.session.add_all([user1, user2, user3])
-  db.session.commit()
+  >>> user1 = User(name = 'James', age = 19)
+  >>> user2 = User(name = 'Harry', age = 18)
+  >>> user3 = User(name = 'Kim', age = 16)
+  >>> db.session.add_all([user1, user2, user3])
+  >>> db.session.commit()
 ```
 
 ### Selecting records from a table
 1. To select all the values from the table users.
-```postgresql
+```sql
   SQL query:
 
   select * from users;
@@ -148,12 +150,12 @@
 ```
 ```python
   Output:
-  (1, Jack, 21)
+    (1, Jack, 21)
 ```
 
 3. If you only wanted to query specific columns then you can use the with_entities() method. For eg, If you only wanted the names of all of the users.
 
-```postgres
+```sql
   SQL Query:
 
   select name from users;
@@ -172,7 +174,7 @@
 
 ### Filtering records based on condition
 1. We can filter the records based on certain conditions. For instance if you wanted to find the users whose age is greater than 18.
-```postgres
+```sql
   SQL Query:
 
   select * from users where age > 18;
@@ -189,7 +191,7 @@
 
 2. You can also use multiple conditions to filter the results.<br>
 &emsp;i. For instance lets get the details of all users whose age is greater than 20 or whose name starts with the character 'K'.
-```postgres
+```sql
   SQL Query:
 
   select * from users where age > 20 or name like('K%');
@@ -206,7 +208,7 @@
 
 &emsp;&emsp;&emsp;&emsp;ii. Similar to 'or' condition ( ' | ' ) you can also use 'and' condition (' & ' ).<br>
 &emsp;&emsp;&emsp;&emsp;iii. For instance lets get the details of all users whose id is greater than 2 and whose age is greater than 17.
-```postgres
+```sql
   SQL Query:
 
   select * from users where id > 2 and age > 17;
@@ -230,7 +232,7 @@
   
     [(1, Jack, 21), (2, James, 19), (3, Harry, 18), (4, Kim, 16)]
 ```
-```postgres
+```sql
   SQL Query:
 
   update users set age = age + 1;
@@ -250,7 +252,7 @@
 
 ### Deleting records in a table
 1. Now lets try to delete a record in a table. Lets try to delete the user with id 2.
-```postgres
+```sql
   SQL Query:
 
   delete from users where id = 2;
@@ -265,7 +267,8 @@
     [(1, Jack, 22), (3, Harry, 19), (4, Kim, 17)]
 ```
 
-[[**Back to top**](#object-relational-mapping-(orm)-in-flask)]
+[Back to top](#object-relational-mapping-(orm)-in-flask)]
+
 
 <p align="right">
   <a href="https://github.com/ASHIK11ab/Flask-Series/tree/url-shortner-app">
