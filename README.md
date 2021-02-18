@@ -5,8 +5,9 @@
 
 ### Index:
 1. [Flask Crash Course](https://github.com/ASHIK11ab/Flask-Series/tree/flask-crash-course)
-1. [Connecting to Database](https://github.com/ASHIK11ab/Flask-Series/tree/connecting-to-database)
+1. [SQL Queries from Python](https://github.com/ASHIK11ab/Flask-Series/tree/sql-from-python)
 1. [Creating a URL shortner using Flask](https://github.com/ASHIK11ab/Flask-Series/tree/url-shortner-app)
+1. [Object Relational Mappping (ORM) in Flask](https://github.com/ASHIK11ab/Flask-Series/tree/orm)
 1. [Implementing OAuth in Flask](https://github.com/ASHIK11ab/Flask-Series/tree/OAuth-implementation)
 
 ### Contributors:
