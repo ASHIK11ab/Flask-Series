@@ -22,10 +22,10 @@
 * [Flask Documentation](https://flask.palletsprojects.com/en/1.1.x/)
 * [Jinja2 Documentation](https://jinja.palletsprojects.com/en/2.11.x/)
 
-[[**Back to top**]](#welcome-to-the-flask-crash-course)
+[[**Back to top**](#welcome-to-the-flask-crash-course)]
 
 <p align="right">
-  <a href="https://github.com/ASHIK11ab/Flask-Series/tree/connecting-to-database">
+  <a href="https://github.com/ASHIK11ab/Flask-Series/tree/sql-from-python">
     <strong>Next--></strong>
   </a>
 </p>
