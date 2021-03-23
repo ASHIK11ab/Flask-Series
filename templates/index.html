@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Todo App in Flask
+{% endblock %}
+
+{% block body %}
+  <button id="add-todo">Add todo</button>
+  <div id="modal">
+    <form action="{{ url_for('home') }}" class="closed" id="modal-form" method=post>
+      <span id="close-btn">&times;</span>
+      <h2>Add Todo details</h2>
+      <label>Title:</label>
+      <input type="text" maxlength=20 name="title">
+
+      <label>Message:</label>
+      <textarea name="message"></textarea>
+
+      <button>Submit</button>
+    </form>
+  </div>
+{% endblock %}
+
+{% block script %}
+  <script src="{{ url_for('static', filename='/js/index.js') }}"></script>
+{% endblock %}
