@@ -44,18 +44,17 @@ button {
 }
 
 form {
-  background: #fff;
-  padding: 2rem;
-  border-radius: 8px;
   position: absolute;
   top: -800px;
   left: 50%;
   transform: translate(-50%);
   width: 500px;
-  transition: top .8s;
-
-  border: 1.5px solid #ddd;
   height: 400px;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  transition: top .8s;
+  border: 1.5px solid #ddd;
 }
 
 label {
@@ -74,15 +73,14 @@ input, textarea {
   width: 100%;
 }
 
+textarea {
+  resize: none;
+  height: 100px;
+}
 
 input:focus, textarea:focus {
   border: 2px solid dodgerblue;
   transition: .6s;
-}
-
-textarea {
-  resize: none;
-  height: 100px;
 }
 
 form h2 {
@@ -96,7 +94,6 @@ form span {
   font-size: 2rem;
   font-weight: bold;
   color: #ddd;
-
 }
 
 form span:hover {
