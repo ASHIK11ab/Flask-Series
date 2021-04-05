@@ -15,6 +15,7 @@
 
 .navbar .container {
   display: flex;
+  align-items: center;
 }
 
 .navbar ul {
@@ -118,4 +119,51 @@ form button {
   height: 100%;
   background: rgba(0, 0, 0, .7);
   margin-left: -.5rem;
+}
+
+.todo-container {
+  margin-top: 2rem;
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.todo-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 1.5rem;
+  border: .8px solid #ddd;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+.todo-content a {
+  text-decoration: none;
+  font-size: 1.3rem;
+}
+
+.btn-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.btn-box a {
+  color: #fff;
+  padding: .8rem;
+  font-size: 1rem;
+  text-decoration: none;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+
+#complete {
+  background-color: #00ff00;
+}
+
+#delete {
+  background-color: #ff0000;
 }

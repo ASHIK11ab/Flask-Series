@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Completed todos
+{% endblock %}
+
+{% block body %}
+  <div class="todo-container">
+    <h2>{{ cnt }} Completed todos</h2>
+    {% if cnt != 0 %}
+      {% for todo in todos %}
+        <div class="todo-card">
+          <div class="todo-content">
+            <a href="{{ url_for('todo', todo_id=todo.id) }}" target="_blank">{{ todo.title }}</a>
+          </div>
+          <div class="btn-box">
+            <a id="delete" type="button" href="{{ url_for('delete_todo', todo_id=todo.id) }}">
+              Delete todo
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+{% endblock %}
