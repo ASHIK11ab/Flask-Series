@@ -9,6 +9,7 @@
 1. [Creating a URL shortner using Flask](https://github.com/ASHIK11ab/Flask-Series/tree/url-shortner-app)
 1. [Object Relational Mappping (ORM) in Flask](https://github.com/ASHIK11ab/Flask-Series/tree/orm)
 1. [Creating a Todo list application using Flask (Part I)](https://github.com/ASHIK11ab/Flask-Series/tree/todo-list-app-part1)
+1. [Creating a Todo list application using Flask (Part II)](https://github.com/ASHIK11ab/Flask-Series/tree/todo-list-app-part2)
 1. [Implementing OAuth in Flask](https://github.com/ASHIK11ab/Flask-Series/tree/OAuth-implementation)
 
 ### Contributors:
