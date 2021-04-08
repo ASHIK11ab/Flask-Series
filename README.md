@@ -1,19 +1,20 @@
-## Todo list application in Flask (Part I)
+## Todo list application in Flask (Part II)
 
 ### Overview
-- In this episode we are going to create the frontend required for our todo list application using Flask.
-- To see the YouTube demonstration of this tutorial [click here](https://youtu.be/P1Gj-OK2oXg)
+- In this episode we are going to start from where we left in creating the Todo App.
+- To see the YouTube demonstration of this tutorial [click here.](https://youtu.be/P1Gj-OK2oXg)
+- If you wanted to see the part I of creating the Todo App [click here.](https://github.com/ASHIK11ab/Flask-Series/tree/todo-list-app-part1)
 
-| &emsp;&emsp;&emsp;Table of Contents |
+<!-- | &emsp;&emsp;&emsp;Table of Contents |
 | --- |
 | 1. [**Creating our application**](#creating-our-application) |
 | 2. [**Creating a layout file**](#creating-a-layout-file) |
 | 3. [**Creating index.html**](#creating-index.html) |
 | 4. [**Styling our elements**](#styling-our-elements) |
-| 5. [**Final touch with JavaScript**](#final-touch-with-javascript) |
+| 5. [**Final touch with JavaScript**](#final-touch-with-javascript) | -->
 
 ### Setting up the environment
-- Download this [Pipfile.lock](https://github.com/ASHIK11ab/Flask-Series/tree/todo-list-app-part1/Pipfile.lock) and install the necessary dependencies by running
+- Download this [Pipfile.lock](https://github.com/ASHIK11ab/Flask-Series/tree/todo-list-app-part2/Pipfile.lock) and install the necessary dependencies by running
   ```bash
     > pipenv sync
   ```
@@ -28,316 +29,354 @@
 <br>
 
 ### Step by Step Guide
-#### Creating our application
-1. Lets first create our application.
-```python
-  from flask import Flask, render_template
+1. Lets start with the backend stuff.
 
-  app = Flask(__name__)
+2. Lets model a SQL table as a class using Flask-SQLAlchemy in [models.py](https://github.com/ASHIK11ab/Flask-Series/tree/todo-list-part2/models.py).
+
+```python
+  from flask_sqlalchemy import SQLAlchemy
+
+  db = SQLAlchemy()
+
+  class Todo(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(20), nullable=False)
+    message = db.Column(db.String(200), nullable=False)
+    status = db.Column(db.String(10), nullable=True, default="pending")
+```
+&emsp;&emsp;&emsp;&emsp;i. First we create a database object by saying 'db = SQLAlchemy()'.
+&emsp;&emsp;&emsp;&emsp;ii. Then, we create a <kbd>class</kbd> called Todo which inherits from 'db.Model' class.<br>
+&emsp;&emsp;&emsp;&emsp;iii. In our <kbd>class Todo</kbd> we have four columns namely 'id', 'title', 'message', 'status'.<br>
+
+> The column 'status' has a default value of pending since all todos are pending at the time of creation.
+
+3. Now we need to convert our <kbd>class</kbd> into a SQL table.
+
+4. Now lets first setup a couple of configuration values for our application.
+```python
+  app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://{usernaem}:{password}@localhost:5432/{database_name}'
+  app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 ```
 
-2. Lets create an index route where we will be returning an index.html template.
+5. Now lets import everything from our models file into our app file and lets convert our classes into SQL tables.
 ```python
+  from models import *
+
+  db.init_app(app)
+
   @app.route('/')
   def home():
+    db.create_all()
     return render_template('index.html')
+
+  if __name__ == "__main__":
+    with app.app_context():
+      app.run()
+```
+> Since we are using the <kbd>init_app()</kbd> method to tie our application with our database object :<br>
+> i. We need to run our application using our application's context.<br>
+> ii. We can use the <kbd>create_all()</kbd> only inside a view function thats why we have added it in the index route.<br>
+> iii. Inorder to create our tables, go to the index route in the browser and refresh the page.
+
+6. Before going further, lets create a bunch of utility functions in [models.py](https://github.com/ASHIK11ab/Flask-Series/tree/todo-list-app-part2/models.py)
+
+```python
+  def get_todo(todo_id):
+    """ Returns a todo.
+
+      :param todo_id: todo id of the todo to be returned
+      :return: todo object which contains information about the todo
+      :rtype: todo object
+    """
+
+    return Todo.query.filter(Todo.id == todo_id).first()
+```
+```python
+  def get_pending_todos():
+    """ Returns all pending todos.
+
+      :return: a list of todo objects whose status is pending
+      :rtype: list
+    """
+
+    return Todo.query.filter(Todo.status == 'pending').all()
+```
+```python
+  def get_completed_todos():
+    """ Returns all completed todos.
+
+      :return: a list of todo objects whose status is completed
+      :rtype: list
+    """
+
+    return Todo.query.filter(Todo.status == 'completed').all()
+
 ```
 
-#### Creating a layout file
-3. Before creating the index.html file lets first create a layout.html file which we will be using as a layout so that other templates can inherit from this layout file.
+7. Now we need to get the form data in the backend and we need to add the todo to the database.
+```python
+  @app.route('/', methods=["GET", "POST"])
+  def home():
+    if request.method == "GET":
+      return render_template('index.html')
+    title = request.form.get('title')
+    message = request.form.get('message')
+    todo = Todo(title=title, message=message)
+    db.session.add(todo)
+    db.session.commit()
+    return redirect('/')
+```
 
-4. In the layout.html file lets create a blocks for title, stylesheet, body, script.
+8. Now when the user visits the index route we need to get all of the pending todos and pass it to our [index.html](https://github.com/ASHIK11ab/Flask-Series/tree/todo-list-app-part2/templates/index.html)
+```python
+  @app.route('/', methods=["GET", "POST"])
+  def home():
+    if request.method == "GET":
+      todos = get_pending_todos()
+      return render_template('index.html', todos = todos, cnt = len(todos))
+```
+
+9. Consolidating our index route should look like this now.
+```python
+  @app.route('/', methods=["GET", "POST"])
+  def home():
+    if request.method == "GET":
+      todos = get_pending_todos()
+      return render_template('index.html', todos = todos, cnt = len(todos))
+    title = request.form.get('title')
+    message = request.form.get('message')
+    todo = Todo(title=title, message=message)
+    db.session.add(todo)
+    db.session.commit()
+    return redirect('/')
+```
+
+10. Now lets add the pending todos in our index.html page.
+
 ```html
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{{ url_for('static', filename='/css/index.css') }}">
-  <title>
-    {% block title %} {% endblock %}
-  </title>
-  <style>
-    {% block stylesheet %} {% endblock %}
-  </style>
-  </head>
-  <body>
-    {% block body %} {% endblock %}
-
-    {% block script %} {% endblock %}
-  </body>
-  </html>
+  <div class="todo-container">
+    <h2>{{ cnt }} Pending todos</h2>
+    {% if cnt != 0 %}
+      {% for todo in todos %}
+        <div class="todo-card">
+          <div class="todo-content">
+            <a href="{{ url_for('todo', todo_id=todo.id) }}" target="_blank">{{ todo.title }}</a>
+          </div>
+          <div class="btn-box">
+            <a id="complete" type="button" href="{{ url_for('complete_todo', todo_id=todo.id) }}">
+              Mark as complete
+            </a>
+            <a id="delete" type="button" href="{{ url_for('delete_todo', todo_id=todo.id) }}">
+              Delete todo
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
 ```
+&emsp;&emsp;&emsp;&emsp;i. If the number of todos is not equal to zero. Then, we loop through the todos and for each todo we display it as a card.<br>
+&emsp;&emsp;&emsp;&emsp;ii. In each todo card we have two buttons one for marking todo as complete and another one for deleting a todo.<br>
+&emsp;&emsp;&emsp;&emsp;iii. When user clicks on the todo title we display a detailed information of the todo in a another page.<br>
+> We will create all these routes in a moment after styling the todo card.
 
-> We have also linked a index.css file using jinja2 syntax. We will be doing all our styling in the index.css file.
+11. Consolidatig, our index.html [should look like this](https://github.com/ASHIK11ab/Flask-Series/tree/todo-list-app-part2/templates/index.html).
 
-5. Since our application is going to have a navigation bar, lets create it in our layout file.
-```html
-  <nav class="navbar">
-    <div class="container">
-      <h2>Todo App</h2>
-      <ul>
-        <li>
-          <a href="{{ url_for('home') }}">Home</a>
-        </li>
-        <li>
-          <a href="#">Complete</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-```
-
-6. Consolidating our [layout.html should look like this now](https://github.com/ASHIK11ab/Flask-Series/tree/todo-list-app-part1/templates/layout.html).
-
-7. Now lets first style the navbar in index.css.<br>
-&emsp;i. Lets first set the font family of all elements to helvetica.
-  ```css
-      * {
-        font-family: Helvetica;
-      }
-  ```
-&emsp;&emsp;&emsp;&emsp;ii. Lets give background color and some padding to the navbar, lets use the container to give whitespace in both sides.
-  ```css
-      .navbar {
-      background: #fff;
-      border-bottom: 1px solid #000;
-      padding: .5rem;
-      }
-
-      .container {
-        width: 80%;
-        margin: auto;
-      }
-
-      .navbar .container {
-        display: flex;
-      }
-  ```
-
-> We are displaying the container inside the navbar as flex since we want all of the elements in navbar to be displayed in a row.
-
-&emsp;&emsp;&emsp;&emsp;iii. For the <kbd>ul</kbd> in the navbar lets display the list items in same row and lets remove some of the default styling to make our navbar look a little bit nice.
+12. Now we need to style our todo card in 'index.css'.<br>
+&emsp;&emsp;&emsp;&emsp;i. For the <kbd>.todo-container</kbd> lets display it as flex and with <kbd>flex-direction: column</kbd> to display all elements in a column. Lets also center the container by giving a width of 80% and with margin set to auto. 
 ```css
-    .navbar ul {
+  .todo-container {
+    margin-top: 2rem;
+    width: 80%;
+    margin: auto;
     display: flex;
-    list-style: none;
-    margin-left: 1rem;
-    }
+    flex-direction: column;
+  }
+```
+&emsp;&emsp;&emsp;&emsp;ii. Now, for the <kbd>.todo-card</kbd> lets display it as flex to display elements in <kbd>.todo-card</kbd> in a row.
+```css
+  .todo-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 1.5rem;
+    border: .8px solid #ddd;
+    border-radius: 8px;
+    margin-top: 1rem;
+  }
+```
+&emsp;&emsp;&emsp;&emsp;iii. For the <kbd>.btn-box</kbd> which contains two buttons lets display it in column using <kbd>flex</kbd> and also lets do some basic styling on 'anchor tags'.
+```css
+  .todo-content a {
+    text-decoration: none;
+    font-size: 1.3rem;
+  }
 
-    .navbar ul li a {
-      text-decoration: none;
-      color: #000;
-      margin-left: 1rem;
-      font-size: 1rem;
-    }
+  .btn-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .btn-box a {
+    color: #fff;
+    padding: .8rem;
+    font-size: 1rem;
+    text-decoration: none;
+    margin-top: 10px;
+    border-radius: 10px;
+  }
+```
+&emsp;&emsp;&emsp;&emsp;iv. Lets give some background color to the buttons in <kbd>.btn-box</kbd>.
+```css
+  #complete {
+    background-color: #00ff00;
+  }
+
+  #delete {
+    background-color: #ff0000;
+  }
 ```
 
-#### Creating index.html
-8. Now lets create an index.html file which will inherit from the layout file.
+13. Consolidatig, our index.css [should look like this](https://github.com/ASHIK11ab/Flask-Series/tree/todo-list-app-part2/static/css/index.css).
 
-9. In the block body lets create a form inside of a <kbd>div</kbd>.
+14. Now we need to work on marking a todo as done and deleting a todo.
+
+15. For marking a todo as done. Lets create a view function called <kbd>complete_todo(todo_id)</kbd> which takes a todo id as a parameter.
+```python
+  @app.route('/todos/complete/<int:todo_id>')
+  def complete_todo(todo_id):
+    todo = get_todo(todo_id)
+    if todo is None:
+      return "<h1>Invalid todo id</h1>"
+    todo.status = 'completed'
+    db.session.commit()
+    return redirect('/')
+```
+&emsp;&emsp;&emsp;&emsp;i. The <kbd>\<int:todo_id\></kbd> is a int URL converter by which this route accepts a todo id of type integer which is passed as a parameter to its view function.<br>
+&emsp;&emsp;&emsp;&emsp;ii. The reason to check <kbd>if the todo is None</kbd> is because if the user manually types the url we want to make sure that a todo with the given id actually existes.<br>
+&emsp;&emsp;&emsp;&emsp;iii. Last, we change the status of the todo to completed and we commit our changes and we redirect user back to the index route.
+
+16. Now we need to work on deleting a todo.
+```python
+  @app.route('/todos/delete/<int:todo_id>')
+  def delete_todo(todo_id):
+    todo = get_todo(todo_id)
+    if todo is None:
+      return "<h1>Invalid todo id</h1>"
+    db.session.delete(todo)
+    db.session.commit()
+    return redirect('/')
+```
+&emsp;&emsp;&emsp;&emsp;i. Deleting a todo is almost similar to marking a todo as done. Instead of changing the status of the todo to completed we use <kbd>db.session.delete(todo)</kbd> method to delete a todo.<br>
+&emsp;&emsp;&emsp;&emsp;ii. After deleting a todo we redirect users back to the index route.
+
+17. Since, completing and deleting a todo is done. Now when the user clicks in the <kbd>complete</kbd> link in the navigation bar we need to list all of the completed todos.
+```python
+  @app.route('/todos/completed')
+  def completed_todos():
+    todos = get_completed_todos()
+    return render_template('completed.html', todos = todos, cnt = len(todos))
+```
+&emsp;&emsp;&emsp;&emsp;i. In the <kbd>/todos/completed</kbd> route we get all of the completed todos and we pass it to [completed.html](https://github.com/ASHIK11ab/Flask-Series/tree/todo-list-app-part2/templates/completed.html).
+
+18. In completed.html we are going to display all of the todos as a card like we did for the pending todos except we will not have a button to mark a todo as done since the todo is aldready completed.
 ```html
   {% extends "layout.html" %}
 
   {% block title %}
-    Todo App in Flask
+    Completed todos
   {% endblock %}
 
   {% block body %}
-    <button id="add-todo">Add todo</button>
-    <div id="modal">
-      <form action="{{ url_for('home') }}" class="closed" id="modal-form" method=post>
-        <span id="close-btn">&times;</span>
-        <h2>Add Todo details</h2>
-        <label>Title:</label>
-        <input type="text" maxlength=20 name="title">
-
-        <label>Message:</label>
-        <textarea name="message"></textarea>
-
-        <button>Submit</button>
-      </form>
+    <div class="todo-container">
+      <h2>{{ cnt }} Completed todos</h2>
+      {% if cnt != 0 %}
+        {% for todo in todos %}
+          <div class="todo-card">
+            <div class="todo-content">
+              <a href="{{ url_for('todo', todo_id=todo.id) }}" target="_blank">{{ todo.title }}</a>
+            </div>
+            <div class="btn-box">
+              <a id="delete" type="button" href="{{ url_for('delete_todo', todo_id=todo.id) }}">
+                Delete todo
+              </a>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
     </div>
   {% endblock %}
-
-  {% block script %}
-    <script src="{{ url_for('static', filename='/js/index.js') }}"></script>
-  {% endblock %}
-```
-> We will use the javascript file later on.
-
-#### Styling our elements
-10. Now lets style the add todo button. We will position it to right of the window with some background color and lets also add some padding.
-```css
-  button {
-    margin-top: 1rem;
-    position: absolute;
-    right: 1rem;
-    background: rgb(113, 68, 197);
-    color: #fff;
-    border: 0;
-    width: 100px;
-    border-radius: 15px;
-    cursor: pointer;
-    padding: .9rem;
-  }
 ```
 
-11. Now we need to style the form and elements inside it.<br>
-&emsp;i. Lets give the form a fixed width and height and lets position the form in the center with some padding and border.
-```css
-    form {
-      position: absolute;
-      top: -800px;
-      left: 50%;
-      transform: translate(-50%);
-      width: 500px;
-      height: 400px;
-      background: #fff;
-      padding: 2rem;
-      border-radius: 8px;
-      transition: top .8s;
-      border: 1.5px solid #ddd;
-    }
+19. There is one last thing that we need to do. When a user clicks on the todo title we want to display a detailed information of the todo.
+```python
+  @app.route('/todos/<int:todo_id>')
+  def todo(todo_id):
+    todo = get_todo(todo_id)
+    if todo is None:
+      return "<h1>Invalid todo id</h1>"
+    return render_template('todo.html', todo=todo)
 ```
-> We initially set the form with a top value of -800px so that we can later on use javascript to display the form from top when the add todo button is clicked.
+&emsp;&emsp;&emsp;&emsp;i. After getting the todo id we make sure that the todo actually exists. If so, we pass it into [todo.html](https://github.com/ASHIK11ab/Flask-Series/tree/todo-list-app-part2/templates/todo.html).
 
-&emsp;&emsp;&emsp;&emsp;ii. Now lets display the label, input and textarea as block elements and lets also do some basic styling to these elements.
-```css
-    label {
-      display: block;
-      font-size: 1rem;
-    }
+20. Consolidating our `app.py` [should look like this now](https://github.com/ASHIK11ab/Flask-Series/tree/todo-list-app-part2/app.py).
 
-    input, textarea {
-      box-sizing: border-box;
-      border: 2px solid #ddd;
-      border-radius: 8px;
-      outline: none;
-      padding: .5rem;
-      margin: 1rem 0;
-      display: block;
-      width: 100%;
-    }
-
-    textarea {
-      resize: none;
-      height: 100px;
-    }
-```
-> The we set the resize property of textarea to none since we dont want it to resize.
-
-&emsp;&emsp;&emsp;&emsp;iii. Now when the input and textarea is focused we need to highlight them by changing the border.
-```css
-    input:focus, textarea:focus {
-      border: 2px solid dodgerblue;
-      transition: .6s;
-    }
-```
-&emsp;&emsp;&emsp;&emsp;iv. Now lets align the <kbd>h2</kbd> tag to center and lets position the <kbd>span</kbd> element to the top right of the form.
-```css
-    form h2 {
-      text-align: center;
-    }
-
-    form span {
-      position: relative;
-      top: 1rem;
-      left: 95%;
-      font-size: 2rem;
-      font-weight: bold;
-      color: #ddd;
-    }
-
-    form span:hover {
-      cursor: pointer;
-      color: #000;
-    }
-```
-&emsp;&emsp;&emsp;&emsp;v. Lets display the button in the form with a width of 90% and with some padding and some basic styling.
-```css
-    form button {
-      width: 90%;
-      background: dodgerblue;
-      color: #fff;
-      padding: .5rem;
-      border: 0;
-      border-radius: 8px;
-      box-sizing: border-box;
-    }
-```
-12. Now lets style a class <kbd>.bg-dark</kbd> which we will be adding as a background to the <kbd>form</kbd> element.
-```css
-  .bg-dark {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, .7);
-    margin-left: -.5rem;
-  }
+21. In <kbd>todo.html</kbd> we print the todo information as card which is centered in the window with some basic styling.
+```html
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+      Todo #{{todo.id}}
+    </title>
+    <style>
+      .todo-card {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 2rem;
+        font-size: 1.2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="todo-card">
+      <h2>Todo #{{todo.id}}</h2>
+      <p>
+        <strong>Title: </strong>{{todo.title}}
+      </p>
+      <p>
+        <strong>Message: </strong>{{todo.message}}
+      </p>
+      <p>
+        <strong>Status: </strong>{{todo.status}}
+      </p>
+    </div>
+  </body>
+  </html>
 ```
 
-13. Consolidating our [index.css should look like this.](https://github.com/ASHIK11ab/Flask-Series/tree/todo-list-app-part1/static/css/index.css)
-
-#### Final touch with JavaScript
-14. Now we need to display the form from the top only when the click on the add todo button. For this we will be using JavaScript.
-
-15. Lets first declare the variables which are required.
-```js
-  let add_icon = document.getElementById("add-todo");
-  let modal = document.getElementById("modal");
-  let form = document.getElementById("modal-form");
-  let close_btn = document.getElementById("close-btn");
-```
-16. First lets create two functions <kbd>show_form()</kbd> and <kbd>hide_form()</kbd> which will show and hide the form.
-```js
-  function show_form() {
-    if(form.className == "closed") {
-      form.style.top = "15%";
-      form.className = "opened";
-      modal.classList.add('bg-dark');
-    }
-  }
-
-  function hide_form() {
-    form.style.top = "-800%";
-    form.className = "closed";
-    modal.classList.remove('bg-dark');
-  }
-```
-> We are adding a the bg-dark class to the modal so that when form is diplayed we get a dark color in the background and we remove it when the form is closed.
-17. Now we need to call the <kbd>show_form()</kbd> function when the add todo button is clicked so we create a event listner for the add todo button.
-```js
-  add_icon.addEventListener('click', show_form);
-```
-18. Next, when the user clicks the close button in the form we need to call the <kbd>hide_form()</kbd> function. So, we create another event listener.
-```js
-  close_btn.addEventListener('click', hide_form);
-
-```
-19. Now, when the form is opened and when user clicks outside the form we need to hide the form.
-```js
-  window.addEventListener('click', function(event){
-    if(form.className == "opened" && event.target == modal)
-      hide_form();
-  });
-```
-
-[[**Back to top**](#todo-list-application-in-flask-(part-i))]
+[[**Back to top**](#todo-list-application-in-flask-(part-ii))]
 
 <p align="right">
-  <a href="https://github.com/ASHIK11ab/Flask-Series/tree/orm">
+  <a href="https://github.com/ASHIK11ab/Flask-Series/tree/todo-list-app-part1">
     <strong><--Prev</strong>
   </a>
 </p>
 <p align="right">
-  <a href="https://github.com/ASHIK11ab/Flask-Series/tree/OAuth-implementation">
+  <a href="#">
     <strong>Next--></strong>
   </a>
 </p>
+
 
 ## Contributors:
 <a href="https://github.com/ASHIK11ab">

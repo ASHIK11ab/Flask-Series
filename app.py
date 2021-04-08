@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, redirect
 from models import *
 
 app = Flask(__name__)
+
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://{username}:{password}@localhost:5432/{database_name}'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://test_user:12345@localhost:5432/todo_list'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
