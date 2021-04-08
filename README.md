@@ -2,16 +2,18 @@
 
 ### Overview
 - In this episode we are going to start from where we left in creating the Todo App.
-- To see the YouTube demonstration of this tutorial [click here.](https://youtu.be/P1Gj-OK2oXg)
+- To see the YouTube demonstration of this tutorial [click here.](https://youtu.be/bVMfUp5dozU)
 - If you wanted to see the part I of creating the Todo App [click here.](https://github.com/ASHIK11ab/Flask-Series/tree/todo-list-app-part1)
 
-<!-- | &emsp;&emsp;&emsp;Table of Contents |
+| &emsp;&emsp;&emsp;Table of Contents |
 | --- |
-| 1. [**Creating our application**](#creating-our-application) |
-| 2. [**Creating a layout file**](#creating-a-layout-file) |
-| 3. [**Creating index.html**](#creating-index.html) |
-| 4. [**Styling our elements**](#styling-our-elements) |
-| 5. [**Final touch with JavaScript**](#final-touch-with-javascript) | -->
+| 1. [**Modelling Todo table as a class**](#modelling-todo-table-as-a-class) |
+| 2. [**Adding a todo**](#adding-a-todo) |
+| 3. [**Retrieving all pending todos**](#retrieving-all-pending-todos) |
+| 4. [**Marking todo as done**](#marking-todo-as-done) |
+| 5. [**Deleting a todo**](#deleting-a-todo) |
+| 6. [**Retrieving all completed todos**](#retrieving-all-completed-todos) |
+| 7. [**Displaying detailed information of a todo**](#displaying-detailed-information-of-a-todo) |
 
 ### Setting up the environment
 - Download this [Pipfile.lock](https://github.com/ASHIK11ab/Flask-Series/tree/todo-list-app-part2/Pipfile.lock) and install the necessary dependencies by running
@@ -31,6 +33,7 @@
 ### Step by Step Guide
 1. Lets start with the backend stuff.
 
+### Modelling Todo table as a Class
 2. Lets model a SQL table as a class using Flask-SQLAlchemy in [models.py](https://github.com/ASHIK11ab/Flask-Series/tree/todo-list-part2/models.py).
 
 ```python
@@ -44,7 +47,7 @@
     message = db.Column(db.String(200), nullable=False)
     status = db.Column(db.String(10), nullable=True, default="pending")
 ```
-&emsp;&emsp;&emsp;&emsp;i. First we create a database object by saying 'db = SQLAlchemy()'.
+&emsp;&emsp;&emsp;&emsp;i. First we create a database object by saying <kbd>db = SQLAlchemy()</kbd>.<br>
 &emsp;&emsp;&emsp;&emsp;ii. Then, we create a <kbd>class</kbd> called Todo which inherits from 'db.Model' class.<br>
 &emsp;&emsp;&emsp;&emsp;iii. In our <kbd>class Todo</kbd> we have four columns namely 'id', 'title', 'message', 'status'.<br>
 
@@ -54,7 +57,7 @@
 
 4. Now lets first setup a couple of configuration values for our application.
 ```python
-  app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://{usernaem}:{password}@localhost:5432/{database_name}'
+  app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://{username}:{password}@localhost:5432/{database_name}'
   app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 ```
 
@@ -113,6 +116,7 @@
 
 ```
 
+### Adding a Todo
 7. Now we need to get the form data in the backend and we need to add the todo to the database.
 ```python
   @app.route('/', methods=["GET", "POST"])
@@ -127,7 +131,8 @@
     return redirect('/')
 ```
 
-8. Now when the user visits the index route we need to get all of the pending todos and pass it to our [index.html](https://github.com/ASHIK11ab/Flask-Series/tree/todo-list-app-part2/templates/index.html)
+### Retrieving all pending todos
+8. Now when the user visits the index route we need to get all of the pending todos and we need to pass it to our [index.html](https://github.com/ASHIK11ab/Flask-Series/tree/todo-list-app-part2/templates/index.html)
 ```python
   @app.route('/', methods=["GET", "POST"])
   def home():
@@ -182,8 +187,8 @@
 
 11. Consolidatig, our index.html [should look like this](https://github.com/ASHIK11ab/Flask-Series/tree/todo-list-app-part2/templates/index.html).
 
-12. Now we need to style our todo card in 'index.css'.<br>
-&emsp;&emsp;&emsp;&emsp;i. For the <kbd>.todo-container</kbd> lets display it as flex and with <kbd>flex-direction: column</kbd> to display all elements in a column. Lets also center the container by giving a width of 80% and with margin set to auto. 
+12. Now we need to style our todo card in [index.css](https://github.com/ASHIK11ab/Flask-Series/tree/todo-list-app-part2/static/css/index.css).<br>
+&emsp;i. For the <kbd>.todo-container</kbd> lets display it as flex and with <kbd>flex-direction: column</kbd> to display all elements in a column. Lets also center the container by giving a width of 80% and with margin set to auto. 
 ```css
   .todo-container {
     margin-top: 2rem;
@@ -243,6 +248,7 @@
 
 14. Now we need to work on marking a todo as done and deleting a todo.
 
+### Marking todo as done
 15. For marking a todo as done. Lets create a view function called <kbd>complete_todo(todo_id)</kbd> which takes a todo id as a parameter.
 ```python
   @app.route('/todos/complete/<int:todo_id>')
@@ -258,6 +264,7 @@
 &emsp;&emsp;&emsp;&emsp;ii. The reason to check <kbd>if the todo is None</kbd> is because if the user manually types the url we want to make sure that a todo with the given id actually existes.<br>
 &emsp;&emsp;&emsp;&emsp;iii. Last, we change the status of the todo to completed and we commit our changes and we redirect user back to the index route.
 
+### Deleting a todo
 16. Now we need to work on deleting a todo.
 ```python
   @app.route('/todos/delete/<int:todo_id>')
@@ -270,8 +277,9 @@
     return redirect('/')
 ```
 &emsp;&emsp;&emsp;&emsp;i. Deleting a todo is almost similar to marking a todo as done. Instead of changing the status of the todo to completed we use <kbd>db.session.delete(todo)</kbd> method to delete a todo.<br>
-&emsp;&emsp;&emsp;&emsp;ii. After deleting a todo we redirect users back to the index route.
+&emsp;&emsp;&emsp;&emsp;ii. After deleting a todo we redirect user back to the index route.
 
+### Retrieving all completed todos
 17. Since, completing and deleting a todo is done. Now when the user clicks in the <kbd>complete</kbd> link in the navigation bar we need to list all of the completed todos.
 ```python
   @app.route('/todos/completed')
@@ -310,6 +318,7 @@
   {% endblock %}
 ```
 
+### Displaying detailed information of a todo
 19. There is one last thing that we need to do. When a user clicks on the todo title we want to display a detailed information of the todo.
 ```python
   @app.route('/todos/<int:todo_id>')
@@ -363,6 +372,8 @@
   </body>
   </html>
 ```
+
+- We have come to the end in creating our Todo application using Flask. If you have any suggestion let me know, hope you learnt something new from these two episodes.
 
 [[**Back to top**](#todo-list-application-in-flask-(part-ii))]
 
