@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Files in Flask</title>
+  <style>
+    .container {
+      width: 80%;
+      margin: 2rem auto;
+    }
+
+    input {
+      display: block;
+      margin-bottom: 2rem;
+      font-size: 18px;
+    }
+
+    input[type="submit"] {
+      background-color: dodgerblue;
+      color: #fff;
+      padding: .8rem;
+      border-radius: 10px;
+    }
+
+    .error {
+      color: #ff0000;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Upload your files here</h1>
+    <p>Upload only png, jpg, jpeg, gif images only.</p>
+    <form action="/" method="post" enctype="multipart/form-data">
+      <input type="file" name="file" required multiple>
+      <input type="submit" value="Upload">
+    </form>
+
+    {% with messages = get_flashed_messages() %}
+      {% for msg in messages %}
+        <p class="error">{{ msg }}</p>
+      {% endfor %}
+    {% endwith %}
+  </div>
+</body>
+</html>
