@@ -26,7 +26,18 @@
   * [Registering your OAuth app with Google](https://console.developers.google.com/apis/dashboard)
   * [Registering your OAuth app with Github](https://github.com/settings/developers)
 
-[[Back to top]](#implementing-oauth-in-your-flask-app-using-authlib)
+[[**Back to top**](#implementing-oauth-in-your-flask-app-using-authlib)]
+
+<p align="right">
+  <a href="https://github.com/ASHIK11ab/Flask-Series/tree/files-in-flask">
+    <strong><--Prev</strong>
+  </a>
+</p>
+<p align="right">
+  <a href="#">
+    <strong>Next--></strong>
+  </a>
+</p>
 
 ## Contributors:
 <a href="https://github.com/ASHIK11ab">
@@ -38,6 +49,3 @@
 &copy; copyrights 2020. All rights reserved.
 
 Licensed under [MIT LICENSE](https://github.com/ASHIK11ab/Flask-Series/blob/main/LICENSE)
-
-
-  
