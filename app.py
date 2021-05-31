@@ -22,9 +22,13 @@ def index():
     if file.filename == '':
       flash('No file uploaded')
       return redirect(request.url)
+
     if file_valid(file.filename):
       filename = secure_filename(file.filename)
       file.save(os.path.join(app.config['UPLOADS_FOLDER'], filename))
+    else:
+      flash('Invalid file type')
+      return redirect(request.url) 
       
   return "Files uploaded successfully"
 
