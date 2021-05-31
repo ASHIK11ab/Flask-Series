@@ -2,6 +2,8 @@
 
 ### Overview:
 - This repository contains tutorials on Flask. We started from scratch and we will end this series with all you need to start web development using Flask.
+- Each video has a complete text based version. Do check out.
+- Have any queries. Just raise an issue.
 
 ### Index:
 1. [Flask Crash Course](https://github.com/ASHIK11ab/Flask-Series/tree/flask-crash-course)
@@ -10,6 +12,7 @@
 1. [Object Relational Mappping (ORM) in Flask](https://github.com/ASHIK11ab/Flask-Series/tree/orm)
 1. [Creating a Todo list application using Flask (Part I)](https://github.com/ASHIK11ab/Flask-Series/tree/todo-list-app-part1)
 1. [Creating a Todo list application using Flask (Part II)](https://github.com/ASHIK11ab/Flask-Series/tree/todo-list-app-part2)
+1. [Uploading and sending files as attachments using Flask](https://github.com/ASHIK11ab/Flask-Series/tree/files-in-flask)
 1. [Implementing OAuth in Flask](https://github.com/ASHIK11ab/Flask-Series/tree/OAuth-implementation)
 
 ### Contributors:
